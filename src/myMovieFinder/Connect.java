@@ -8,17 +8,21 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class Connect {
-	   static final String databasePrefix ="project"; // TODO: need to change this depending on DB location
-	   static final String netID ="root"; // Please enter your netId
-	   static final String hostName ="localhost"; //washington.uww.edu
-	   static final String databaseURL ="jdbc:mysql://"+hostName+"/"+databasePrefix+"?useSSL=false&serverTimezone=UTC";
-	   static final String password="xxxxxx"; // please enter your own password
+	   static final String databasePrefix ="mymoviefinder"; // TODO: need to change this depending on DB location
+	   static final String netID ="user1"; // Please enter your netId
+	   static final String hostName ="localhost"; //leave as is
+	   static final String databaseURL ="jdbc:mysql://"+hostName+"/"+databasePrefix+"?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+	   static final String password="password"; // please enter your own password
 	    
 	   private static Connection connection = null;
        private static Statement statement = null;
        private static ResultSet resultSet = null;
        
 	   public static Connection getConnection(){
+		   //no need to reconnect if we're already established
+		  if(connection != null)
+			   return connection;
+		  
 	      try {
 	            Class.forName("com.mysql.cj.jdbc.Driver");
 	            System.out.println("databaseURL: "+ databaseURL);

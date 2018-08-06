@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Connection;
+import java.util.StringJoiner;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -121,19 +122,70 @@ public class FindMoviesController implements ActionListener, MouseListener, Chan
     };
 
 
-    protected String buildQueryString(String title, String director, int year, String genre2, String actor2, int val1, int val2, int val3) {
+    protected String buildQueryString(String title, String director, int year, String genre, String actor, int allCritics, int topCritics, int audienceRating) {
         //build query string systematically using all possible input data.
         String qry = "";
-        // getText();
-        //pw = passwordField.getText();
-        //TODO Update Query for user ID
+        
+       /*
         qry = "SELECT movieID,title,year,rtAllCriticsRating,rtTopCriticsRating,rtAudienceRating from movies"
                 + " WHERE title LIKE '%" + title + "%'" + " and movieID IN (select d.movieID from movie_directors d where d.directorName LIKE '%" + director + "%'"
                 + " and year >= " + String.valueOf(year)
                 + " and movieID IN (select g.movieID from movie_genres g where g.genre LIKE '%" + genre2 + "%')"
                 + " and movieID IN (select a.movieID from movie_actors a where a.actorName LIKE '%"+ actor2 + "%') "
                 + "and rtAllCriticsRating >= " + val1 + " and rtTopCriticsRating >= " + val2 + " and rtAudienceRating>= " + val3 +  ")";
+         */
+        
+        //dynamically build query
+        //base query, select all movies if nothing is filled in:
+      	qry = "SELECT movieID,title,year,rtAllCriticsRating,rtTopCriticsRating,rtAudienceRating FROM movies m";
+      	StringJoiner qryRestrictionJoiner = new StringJoiner(" AND "); 
+      		 
+      	//build query string
+      	//Title (simple)
+      	if(title.length() > 0) {
+      		qryRestrictionJoiner.add("m.title LIKE '%" + title + "%'");
+      	}
+      	//Year  (simple)
+      	if(year > 0) {
+      		qryRestrictionJoiner.add("m.year = " + year);
+      	}
+      	
+        //Sliders for ratings - in movie table, so these are still simple queries.
+      	//All Critics
+      	if(allCritics > 0) {
+      		qryRestrictionJoiner.add("m.rtAllCriticsRating > " + allCritics);
+      	}
+      	//Top Critics
+      	if(topCritics > 0) {
+      		qryRestrictionJoiner.add("m.rtTopCriticsRating > " + topCritics);
+      	}
+      	//Audience
+      	if(audienceRating > 0) {
+      		qryRestrictionJoiner.add("m.rtAudienceRating > " + audienceRating);
+      	}
+      	
+      	//Director - link out to movie_directors
+      	if(director.length() > 0) {
+      		qryRestrictionJoiner.add("movieID IN (select d.movieID from movie_directors d where d.directorName LIKE '%" + director + "%')");
+      	}
+      	
+      	//Genre - link out to genre 
+      	if(genre.length() > 0) {  		
+      		qryRestrictionJoiner.add("movieID IN (select g.movieID from movie_genres g where g.genre LIKE '%" + genre + "%')");
 
+      	}
+      	
+      	//Actor
+      	if(actor.length() > 0) {
+      		qryRestrictionJoiner.add("movieID IN (select a.movieID from movie_actors a where a.actorName LIKE '%"+ actor + "%') ");
+      	}
+      		
+      	
+      	
+      	//tack on the Where piece of the statement if we have it. 
+      	if(qryRestrictionJoiner.length() > 0)
+      		qry = qry + " WHERE " + qryRestrictionJoiner.toString();
+      		
         System.out.println("Query: " + qry);
         return qry;
     }

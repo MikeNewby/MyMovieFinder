@@ -16,6 +16,7 @@ import myMovieFinder.ViewControllers.FindMoviesController;
 import javax.swing.JSlider;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class FindMovies {
 	private FindMoviesController controller;
@@ -63,9 +64,10 @@ public class FindMovies {
 
 		// Review Panel
 		reviewPanel = new JPanel();
-		reviewPanel.setBounds(10, 397, 192, 170);
+		reviewPanel.setBackground(new Color(248, 248, 255));
+		reviewPanel.setBounds(10, 397, 192, 152);
 		reviewPanel.setLayout(null);
-		// frame.getContentPane().add(reviewPanel);  //hide initially. uncomment for testing. TODO	
+		//frame.getContentPane().add(reviewPanel);  //hide initially. uncomment for testing. TODO	
 		
 		lblMovieName = new JLabel("");
 		lblMovieName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -81,18 +83,13 @@ public class FindMovies {
 
 		JButton btnGetRec = new JButton("Recommendations");
 		btnGetRec.addActionListener(controller);
-		btnGetRec.setBounds(31, 50, 127, 40);
+		btnGetRec.setBounds(30, 62, 127, 40);
 		reviewPanel.add(btnGetRec);
 		
 		JButton btnNewReview = new JButton("New Review");
 		btnNewReview.addActionListener(controller);
-		btnNewReview.setBounds(31, 90, 127, 40);
+		btnNewReview.setBounds(30, 101, 127, 40);
 		reviewPanel.add(btnNewReview);
-		
-		JButton btnReadReviews = new JButton("Read Reviews");
-		btnReadReviews.addActionListener(controller);
-		btnReadReviews.setBounds(31, 130, 127, 40);
-		reviewPanel.add(btnReadReviews);
 
 		//main 
 		JLabel lblFindMovies = new JLabel("Find Movies!");
@@ -190,14 +187,15 @@ public class FindMovies {
 		
 		
 		JSlider slider = new JSlider();
+		slider.setValue(0);
 		slider.setName("All Critics");
 		slider.setMaximum(10);
 		slider.setBounds(74, 236, 98, 26);
 		frame.getContentPane().add(slider);
 		slider.addChangeListener(controller);
 		
-		
 		JSlider slider_1 = new JSlider();
+		slider_1.setValue(0);
 		slider_1.setName("Top Critics");
 		slider_1.setMaximum(10);
 		slider_1.setBounds(74, 267, 98, 26);
@@ -205,14 +203,14 @@ public class FindMovies {
 		slider_1.addChangeListener(controller);
 		
 		JSlider slider_2 = new JSlider();
+		slider_2.setValue(0);
 		slider_1.setName("Audience");
 		slider_2.setMaximum(5);
 		slider_2.setBounds(74, 301, 98, 26);
 		frame.getContentPane().add(slider_2);
 		slider_2.addChangeListener(controller);
 		
-		JPanel THISONE = new JPanel();
-		THISONE.setBounds(147, 8, 45, 31);
+
 	}
 
 	public static void setResultSet(ResultSet resultSet) {

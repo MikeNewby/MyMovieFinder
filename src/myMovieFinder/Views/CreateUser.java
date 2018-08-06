@@ -80,7 +80,7 @@ public class CreateUser {
 		frame.getContentPane().add(emailLabel);
 
 		emailTextField = new JTextField();
-		emailTextField.setForeground(Color.LIGHT_GRAY);
+		emailTextField.setForeground(new Color(0, 0, 0));
 		emailTextField.setBounds(104, 71, 107, 20);
 		frame.getContentPane().add(emailTextField);
 		emailTextField.setColumns(10);
