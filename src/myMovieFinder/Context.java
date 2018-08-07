@@ -7,12 +7,12 @@ public class Context {
     //public int userId;
     public User user;
     public Movie movie;
-
+    
+    public int numMoviesReviewed;
+    
     public void setNumMoviesReviewed(int numMoviesReviewed) {
         this.numMoviesReviewed = numMoviesReviewed;
     }
-
-    public int numMoviesReviewed;
 
     public User getUser() {
         return user;

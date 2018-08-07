@@ -32,11 +32,11 @@ public class AddGenreController implements ActionListener, ListSelectionListener
     public void actionPerformed(ActionEvent e) {
         // save selected user - genre relationship on select
         for (Integer selection: selected) {
-            Query.likeGenre(context.user.getUserId(), genres[selection]);
+            Query.likeGenre(context.user.getUserId(), genres[selection]); 
             count++;
         }
         if (count > 2) {
-            context.movie = Query.getSuggestedMovie(context.user.getUserId());
+            context.movie = Query.getSuggestedMovie(context.user.getUserId()); //maybe 
             AddReview.run(context);
             view.getFrame().dispose();;
         }

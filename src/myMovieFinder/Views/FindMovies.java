@@ -204,7 +204,7 @@ public class FindMovies {
 		
 		JSlider slider_2 = new JSlider();
 		slider_2.setValue(0);
-		slider_1.setName("Audience");
+		slider_2.setName("Audience");
 		slider_2.setMaximum(5);
 		slider_2.setBounds(74, 301, 98, 26);
 		frame.getContentPane().add(slider_2);

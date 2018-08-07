@@ -29,19 +29,19 @@ public class AddReviewController implements ActionListener, ChangeListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand() == "Rate") {
-            Query.rateMovie(context.user.getUserId(), context.movie.getMovieId(), rating);
+            Query.rateMovie(context.user.getUserId(), context.movie.getMovieId(), rating); //movieID, rating
             context.numMoviesReviewed++;
         }
 
         view.getFrame().dispose();
 
-        if (context.numMoviesReviewed > 4) {
+        if (context.numMoviesReviewed > 2) {   //3
             FindMovies findMovies = new FindMovies(context);
             findMovies.run(context);
             return;
         }
 
-        context.movie = Query.getSuggestedMovie(context.user.getUserId());
+        context.movie = Query.getSuggestedMovie(context.user.getUserId()); //parameter 
         AddReview.run(context);
     }
 }

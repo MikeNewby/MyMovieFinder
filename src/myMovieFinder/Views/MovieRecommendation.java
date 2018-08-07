@@ -16,6 +16,9 @@ public class MovieRecommendation {
 	private MovieRecommendationController controller;
 
 	public JTable getTable() {
+		if (table == null) {
+			System.out.println("getTable() returns a null table!");
+		}
 		return table;
 	}
 	
@@ -34,9 +37,9 @@ public class MovieRecommendation {
 	}
 
 	public MovieRecommendation(Context context) {
+		System.out.println(this.table);
 		controller = new MovieRecommendationController(context, this);
-		controller.getMovieRecommendations();
-
+		System.out.println("We have no problem until now.");
 		// Main frame to put components.
 		frame = new JFrame();
 		frame.setBounds(100, 100, 908, 616);
@@ -52,8 +55,8 @@ public class MovieRecommendation {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(223, 39, 660, 528);
 		frame.getContentPane().add(scrollPane);
-		table = new JTable();
-		scrollPane.setViewportView(table);
-
+		this.table = new JTable();
+		scrollPane.setViewportView(this.table);
+		controller.getMovieRecommendations();
 	}
 }

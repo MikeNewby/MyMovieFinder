@@ -80,12 +80,12 @@ public class AddReview {
 		slider.addChangeListener(controller);
 		frame.getContentPane().add(slider);
 
-		JButton addReviewButton = new JButton("Skip");
+		JButton addReviewButton = new JButton("Rate");
 		addReviewButton.addActionListener(controller);
 		addReviewButton.setBounds((width - 175) / 2, height - (height / 4), 80, 50);
 		frame.getContentPane().add(addReviewButton);
 
-		JButton addSkipButton = new JButton("Rate");
+		JButton addSkipButton = new JButton("Skip"); 
 		addSkipButton.addActionListener(controller);
 		addSkipButton.setBounds((width + 25) / 2, height - (height / 4), 80, 50);
 		frame.getContentPane().add(addSkipButton);
