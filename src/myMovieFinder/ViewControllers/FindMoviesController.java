@@ -31,7 +31,7 @@ public class FindMoviesController implements ActionListener, MouseListener, Chan
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand() == "Recommendations") {
+        if (e.getActionCommand() == "Recommended Movies") {
             MovieRecommendation.run(context);
         }
 
@@ -39,9 +39,9 @@ public class FindMoviesController implements ActionListener, MouseListener, Chan
             AddReview.run(context);
         }
 
-        if (e.getActionCommand() == "Read Reviews") {
-            ReadReview.run(context);
-        }
+        // if (e.getActionCommand() == "Read Reviews") {
+        //    ReadReview.run(context);
+        // }
 
         if (e.getActionCommand() == "Exit") {
             view.getFrame().dispose();

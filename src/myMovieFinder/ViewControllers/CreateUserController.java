@@ -17,6 +17,7 @@ public class CreateUserController implements ActionListener {
     public CreateUserController(Context context, CreateUser view) {
         super();
         this.context = context;
+        context.setLaunch(true); //launch find movies module after rating
         this.view = view;
     }
 

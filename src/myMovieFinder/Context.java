@@ -7,7 +7,7 @@ public class Context {
     //public int userId;
     public User user;
     public Movie movie;
-    
+    public boolean launchFindMovies;  //used to track open windows
     public int numMoviesReviewed;
     
     public void setNumMoviesReviewed(int numMoviesReviewed) {
@@ -33,4 +33,13 @@ public class Context {
     public Context() {
         numMoviesReviewed = 0;
     };
+    
+    public boolean getLaunch() {
+        return launchFindMovies;
+    }
+
+    public void setLaunch(boolean launch) {
+        this.launchFindMovies = launch;
+    }
+
 }

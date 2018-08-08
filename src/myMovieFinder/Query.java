@@ -36,14 +36,28 @@ public class Query {
 
     public static void rateMovie(int userId, int movieId, int rating) {
         Date date = new Date();
-
+    /*MN+20 - ratedby and user_ratemovies are the same? (ratedby is n the origial dataset. 
         String query = "INSERT INTO RatedBy (userId, rtID, date, rating) VALUES ("
                 + userId + ", "
                 + movieId + ", "
                 + "'" + date.toString() + "'" + ", "
                 + rating
                 + ");";
-
+     */  
+        @SuppressWarnings("deprecation")
+		String query = "INSERT INTO user_ratedmovies (userId, movieID, rating, date_day, date_month, date_year, date_hour, date_minute, date_second) VALUES ("
+                + userId + ", "
+                + movieId + ", "
+                + rating + ", "
+                + "'" + date.getDay() + "'" + ", "
+                + "'" + date.getMonth() + "'" + ", "
+                + "'" + date.getYear() + "'" + ", "
+                + "'" + date.getHours() + "'" + ", "
+                + "'" + date.getMinutes() + "'" + ", "
+                + "'" + date.getSeconds() + "'"
+                + ");";
+        
+        System.out.println(query);
         Connect.getConnection();
         int rowCount = Connect.update(query);
 
@@ -54,29 +68,24 @@ public class Query {
 
     public static String[] getSuggestedGenres() {
         String[] genres = new String[20];
-
-        //TODO: temp data until queries are finalized
-        genres[0] = "Adventure";
-        genres[1] = "Animation";
-        genres[2] = "Children";
-        genres[3] = "Comedy";
-        genres[4] = "Fantasy";
-        genres[5] = "Romance";
-        genres[6] = "Drama";        
-        genres[7] = "Action";
-        genres[8] = "Crime";
-        genres[9] = "Thriller";    
-        genres[10] = "Horror";
-        genres[11] = "Mystery"; 
-        genres[12] = "Sci-Fi";      
-        genres[13] = "IMAX";
-        genres[14] = "Documentary";
-        genres[15] = "War";
-        genres[16] = "Musical";
-        genres[17] = "Film-Noir";
-        genres[18] = "Western";
-        genres[19] = "Short";
-
+        
+        //MN++ pull genres from table. 
+        String qry = "SELECT DISTINCT genre FROM movie_genres ORDER BY genre;";
+    	Connection connection = Connect.getConnection();
+    	try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(qry);
+            int cnt=0;
+            while(resultSet.next()) {
+            	genres[cnt] = resultSet.getString(1);
+            	cnt++;
+            }
+            
+        } catch(Exception e1) {
+            //handle bad data
+            JOptionPane.showMessageDialog(null, e1);
+        }
+        
         return genres;
     }
 
@@ -94,18 +103,33 @@ public class Query {
     }
 
     public static Movie getSuggestedMovie(int userId) {
-        //TODO: add query
-        Random rand = new Random();
-        Movie movie = getMovieById(rand.nextInt(1000));
+        //Get random movie based on one of the user's selected genres
+    	int movieId = 0;  //need to prevent the error here. 
+    	
+    	String genreQry = "SELECT * FROM movie_genres WHERE genre IN (SELECT genre FROM likedgenre WHERE userID = " + userId + " ORDER BY RAND()) ORDER BY RAND() LIMIT 1;";
+    	Connection connection = Connect.getConnection();
+    	try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(genreQry);
+            resultSet.next();
+            movieId = resultSet.getInt(1);
+            
+        } catch(Exception e1) {
+            //handle bad data
+            JOptionPane.showMessageDialog(null, e1);
+        }
+
+        Movie movie = getMovieById(movieId);
 
         return movie;
     }
 
+    
     public static Movie getMovieById(int movieId) {
         String qry = "Select title, rtPictureURL from movies where movieId = " + movieId;
         Movie movie = new Movie(movieId);
 
-        Connection connection = Connect.getConnection();
+        Connection connection = Connect.getConnection();  //will short circuit in getConnection if we already have it. 
 
         try {
             Statement statement = connection.createStatement();
@@ -129,4 +153,30 @@ public class Query {
 
         return null;
     }
+    
+    /*
+     * For movie recommendations, find the user's top three movies, then select movies with thoe genres
+     */
+    public static Movie getRecommendedMovie(int userId) {
+        //Get random movie based on one of the user's selected genres
+    	int movieId = 0;  //need to prevent the error here. 
+    	
+    	String genreQry = "SELECT * FROM movie_genres WHERE genre IN (SELECT genre FROM likedgenre WHERE userID = " + userId + " ORDER BY RAND()) ORDER BY RAND() LIMIT 1;";
+    	Connection connection = Connect.getConnection();
+    	try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(genreQry);
+            resultSet.next();
+            movieId = resultSet.getInt(1);
+            
+        } catch(Exception e1) {
+            //handle bad data
+            JOptionPane.showMessageDialog(null, e1);
+        }
+
+        Movie movie = getMovieById(movieId);
+
+        return movie;
+    }
+
 }

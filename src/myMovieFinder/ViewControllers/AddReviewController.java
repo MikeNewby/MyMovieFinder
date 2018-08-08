@@ -34,6 +34,10 @@ public class AddReviewController implements ActionListener, ChangeListener {
         }
 
         view.getFrame().dispose();
+        
+        //don't re-launch find movies or another add review for other windows
+        if(!context.getLaunch())
+        	return;
 
         if (context.numMoviesReviewed > 2) {   //3
             FindMovies findMovies = new FindMovies(context);

@@ -54,8 +54,8 @@ public class FindMovies {
 	 */
 	public FindMovies(Context context) {
 		this.context = context;
+		context.setLaunch(false); //no need to re-launch
 		this.controller = new FindMoviesController(this.context, this);
-		// Initialize database
 
 		frame = new JFrame();
 		frame.setBounds(100, 100, 958, 613);
@@ -65,7 +65,7 @@ public class FindMovies {
 		// Review Panel
 		reviewPanel = new JPanel();
 		reviewPanel.setBackground(new Color(248, 248, 255));
-		reviewPanel.setBounds(10, 397, 192, 152);
+		reviewPanel.setBounds(10, 397, 192, 98);
 		reviewPanel.setLayout(null);
 		//frame.getContentPane().add(reviewPanel);  //hide initially. uncomment for testing. TODO	
 		
@@ -80,15 +80,10 @@ public class FindMovies {
 		lblReview.setBounds(0, 0, 192, 25);
 		lblReview.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		reviewPanel.add(lblReview);
-
-		JButton btnGetRec = new JButton("Recommendations");
-		btnGetRec.addActionListener(controller);
-		btnGetRec.setBounds(30, 62, 127, 40);
-		reviewPanel.add(btnGetRec);
 		
 		JButton btnNewReview = new JButton("New Review");
 		btnNewReview.addActionListener(controller);
-		btnNewReview.setBounds(30, 101, 127, 40);
+		btnNewReview.setBounds(31, 51, 127, 40);
 		reviewPanel.add(btnNewReview);
 
 		//main 
@@ -96,6 +91,11 @@ public class FindMovies {
 		lblFindMovies.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblFindMovies.setBounds(20, 8, 182, 31);
 		frame.getContentPane().add(lblFindMovies);
+		
+		JButton btnGetRec = new JButton("Recommended Movies");
+		btnGetRec.setBounds(10, 507, 192, 40);
+		frame.getContentPane().add(btnGetRec);
+		btnGetRec.addActionListener(controller);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(223, 19, 660, 528);
@@ -209,6 +209,7 @@ public class FindMovies {
 		slider_2.setBounds(74, 301, 98, 26);
 		frame.getContentPane().add(slider_2);
 		slider_2.addChangeListener(controller);
+		
 		
 
 	}
