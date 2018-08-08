@@ -8,12 +8,11 @@ public class Context {
     public User user;
     public Movie movie;
     public boolean launchFindMovies;  //used to track open windows
-
+    public int numMoviesReviewed;
+    
     public void setNumMoviesReviewed(int numMoviesReviewed) {
         this.numMoviesReviewed = numMoviesReviewed;
     }
-
-    public int numMoviesReviewed;
 
     public User getUser() {
         return user;

@@ -28,6 +28,7 @@ public class LoginController implements ActionListener {
                 System.out.println("email: " + email + ", password: " + password);
                 // TODO: Update Query for user ID
                 String userQry = "SELECT * from users WHERE email='" + email + "' and password='" + password + "'";
+                System.out.println(userQry);
                 int userId = Connect.checkUser(userQry);
                 if(userId > 0) {
                     System.out.println("User " + email + " found!");
@@ -39,9 +40,12 @@ public class LoginController implements ActionListener {
                     context.user = user;
                     FindMovies findMovies = new FindMovies(context);
                     findMovies.run(context);
-                }
-                String strResult = "Invalid User ID and Password Combo.\n Please try again.";
-                view.getLblLogin().setText(strResult);
+                } 
+                else {
+                		String strResult = "Invalid User ID and Password Combo.\n Please try again.";
+                		System.out.println(strResult);
+                		view.getLblLogin().setText(strResult);
+                	}
 
             }catch(Exception e1) {
                 // handle bad data

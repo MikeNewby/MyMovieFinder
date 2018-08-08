@@ -28,6 +28,12 @@ public class MovieRecommendation {
 	private JPanel reviewPanel;
 
 
+	public JTable getTable() {
+		if (table == null) {
+			System.out.println("getTable() returns a null table!");
+		}
+		return table;
+	}
 	
 	public static void run(Context context) {
 		EventQueue.invokeLater(new Runnable() {
@@ -47,8 +53,8 @@ public class MovieRecommendation {
 		this.context = context;
 		context.setLaunch(false); //no need to re-launch
 		this.controller = new MovieRecommendationController(context, this);
-
-		// Main frame to put components.
+		
+    // Main frame to put components.
 		frame = new JFrame();
 		frame.setBounds(100, 100, 908, 324);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

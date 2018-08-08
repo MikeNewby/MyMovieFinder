@@ -8,11 +8,11 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class Connect {
-	   static final String databasePrefix ="mymoviefinder"; // TODO: need to change this depending on DB location
-	   static final String netID ="user1"; // Please enter your netId
+	   static final String databasePrefix ="project"; // TODO: need to change this depending on DB location
+	   static final String netID ="root"; // Please enter your netId
 	   static final String hostName ="localhost"; //leave as is
-	   static final String databaseURL ="jdbc:mysql://"+hostName+"/"+databasePrefix+"?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
-	   static final String password="password"; // please enter your own password
+	   static final String databaseURL ="jdbc:mysql://"+hostName+"/"+databasePrefix+"?useSSL=false&serverTimezone=UTC";
+	   static final String password="x!"; // please enter your own password
 	    
 	   private static Connection connection = null;
        private static Statement statement = null;

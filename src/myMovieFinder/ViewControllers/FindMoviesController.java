@@ -60,13 +60,13 @@ public class FindMoviesController implements ActionListener, MouseListener, Chan
                 Statement statement = connection.createStatement();
                 view.setResultSet(statement.executeQuery(qry));
                 view.getTable().setModel(DbUtils.resultSetToTableModel(view.getResultSet()));
-
             }catch(Exception e1) {
                 //handle bad data
                 JOptionPane.showMessageDialog(null, e1);
             }
 
             Connect.runQuery(qry);
+            System.out.println("[context.user.getUserId()]"+context.user.getUserId() );
         }
 
     }
@@ -88,7 +88,6 @@ public class FindMoviesController implements ActionListener, MouseListener, Chan
     public void stateChanged(ChangeEvent e) {
         JSlider slider = (JSlider) e.getSource();
         String name = slider.getName();
-
         if (!slider.getValueIsAdjusting()) {
             int value = slider.getValue();
             if (name == "All Critics") {

@@ -7,10 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AddGenre {
-    public JFrame getFrame() {
-        return frame;
-    }
-
     private JFrame frame;
 
     public static void runAddGenre(Context context) {
@@ -26,6 +22,9 @@ public class AddGenre {
         });
     }
 
+    public JFrame getFrame() {
+        return frame;
+    }
 
     public AddGenre(Context context) {
         AddGenreController controller = new AddGenreController(context, this);
@@ -42,14 +41,16 @@ public class AddGenre {
         genreLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
         genreLabel.setBounds((width - 107) / 2, height / 12, 107, height / 6);
         frame.getContentPane().add(genreLabel);
-
+    		
         JList<String> genreList = new JList(controller.getGenres());
-        genreList.setBounds( (width - 200) / 2, height / 4, 200, height / 2);
         ListSelectionModel listSelectionModel = genreList.getSelectionModel();
         listSelectionModel.addListSelectionListener(controller);
-        frame.getContentPane().add(genreList);
-        java.util.List<String> selected_values = genreList.getSelectedValuesList();    
+        //java.util.List<String> selected_values = genreList.getSelectedValuesList();   
 
+        JScrollPane scrollPane = new JScrollPane(genreList);
+        scrollPane.setBounds( (width - 200) / 2, height / 4, 200, height / 2);
+        frame.getContentPane().add(scrollPane);
+               
         JButton addReviewButton = new JButton("Select");
         addReviewButton.addActionListener(controller);
         addReviewButton.setBounds((width - 200) / 2, height - 100, 200, 50);
